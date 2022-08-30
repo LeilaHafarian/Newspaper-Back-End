@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Article"] - mvc</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/mvc.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div>
+        <div class="header">
+            <di class="container d-flex justify-content-between">
+                <h3>Blåatoppens dagblad</h3>
+                <button id="change" class="bg-transparent text-white border-0 d-none d-md-block">
+                    <i class="fa fa-toggle-on"></i>
+                    Swich Theme
+                </button>
+                <button id="change" class="bg-transparent text-white border-0 d-block d-md-none">
+                    <i class="fa fa-toggle-on"></i>
+                </button>
+            </di>
+
+        </div>
+        <div class="container">
+            <a href="http://localhost:3000/" target="_blank">Admin</a>
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
+
+<div class="footer-content mt-4">
+             <di class="container d-flex justify-content-between" style="padding-left: 110px; padding-right: 120px;">
+                <div class="" style="width:inherit">
+                    <p class="p-stor-text d-none d-md-block">Test Content</p>
+                      <p class="p-normal-text d-block d-md-none">Test Content</p>
+                    <p class="p-liten-text">test content test content test content</p>
+                </div>
+                <div class="pl-5" style="padding-left: 16px;max-width: 460px;min-width: 260px;">
+                      <p class="p-stor-text d-none d-md-block">Test Content</p>
+                      <p class="p-normal-text d-block d-md-none">Test Content</p>
+                    <p class="p-liten-text">test content test content test content test content test content test content test content test content test content test content test content test content</p>
+                </div>
+            </di>
+        <div></div></div>
+
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+
+        <script>
+$(document).ready(function() {
+    $('#leaveComment').hide();
+    $("#change").click(function() {
+    $("body").toggleClass("change-body-color");
+    $(".footer-content").toggleClass("change-footer-color");
+  });
+      $( "#comment" ).click(function() {     
+        $('#leaveComment').toggle( 1000);
+    });
+  $(window).scroll( function(){
+	        $('.fadein').each( function(i){
+	            var bottom_of_element = $(this).offset().top + $(this).outerHeight();
+                if( 10 < bottom_of_element<100){
+	                $(".fadein").animate({'opacity':'1'},2500);
+	            }
+                else
+                {
+                    $(".fadein").animate({'opacity':'0'},2500);
+                }
+
+
+                
+	        });
+
+            $('.fadein1').each( function(i){
+	            var bottom_of_element = $(this).offset().top + $(this).outerHeight();
+	            if( 1200 < bottom_of_element<1900){
+	                $(".fadein1").animate({'opacity':'1'},3500);
+	            }
+                else
+                {
+                    $(".fadein1").animate({'opacity':'0'},3500);
+                }
+               
+	        });
+	    });
+});
+        
+    </script>
+
+</body>
+</html>

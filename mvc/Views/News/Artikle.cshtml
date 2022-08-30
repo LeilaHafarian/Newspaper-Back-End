@@ -1,0 +1,163 @@
+﻿@model Service.Models.ArticleDTO
+
+@{
+    ViewData["Title"] = "Artikle";
+}
+ <div id="news" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mt-3">
+                    <img src="~/images/@Html.DisplayFor(model => model.ImageName)" class="opacity-for-image w-100" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <div class="mt-3 mb-2 d-block d-md-none mb-3">
+                    <div class="xs-comment-box d-block d-md-none mb-3">
+                        <div class="d-flex justify-content-between p-3">
+                            <p>
+                                @Html.DisplayFor(model => model.Author.FirstName) @Html.DisplayFor(model => model.Author.LastName) 
+                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                            </p>
+                            <p>@Html.DisplayFor(model => model.Created)</p>
+                            
+                        </div>
+
+                    </div>
+                    <div class="xs-comment-box d-block d-md-none mb-3">
+                        <div class="botton-left-img mb-2">
+                            <img src="~/images/reklam-1-landscape-940w.png" class="w-100 h-100" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="news-content p-3 mt-3 mb-2">
+                    <div class="m-4">
+                        <div class="title">
+                             <p class="p-stor-text news-title"> @Html.DisplayFor(model => model.Title)</p>
+                        </div>
+                        <div class="article fadein">
+                            <p class="p-normal-text news-title">@Html.DisplayFor(model => model.Intro)</p>
+                        @{
+                            string img ="",quote="", paragraph1="", paragraph2="", paragraph3="";
+
+                            @foreach (var item in Model.Blocks)
+                            {
+                                 switch (item.Order)
+                                 {
+                                     case 1:
+                                        img = item.Value;
+                                        break;
+                                    case 2 :
+                                        paragraph1 = item.Value;
+                                        break;
+                                    case 3 :
+                                        paragraph2 = item.Value;
+                                        break;
+                                     case 4 :
+                                        quote = item.Value;
+                                        break;
+                                     case 5 :
+                                        paragraph3 = item.Value;
+                                        break;
+
+                                 } 
+                            }
+                            <p class="p-normal-text news-title">@paragraph1</p>
+                            <p class="p-stor-text news-title text-center text-white" style="background-color: #548052;padding: 70px;">@quote</p>
+                            <p class="p-normal-text news-title">@paragraph2</p>
+                             <img class="w-100" src="~/images/@img" />
+                             <p class="p-normal-text news-title">@paragraph3</p>
+                       
+                            
+                             
+                         }
+                        </div>
+                        <hr class="bg-success" />
+                        <div class="d-flex justify-content-between fadein1">
+                            <p class="p-stor-text">@Model.Comments.Count() Comment</p>
+                            <h3>
+                                <div id="comment" class="light-green" style="text-decoration: underline;cursor: pointer;">
+                                    Write a comment
+                                </div>
+                            </h3>
+                        </div>
+                        <div class="mt-4 fadein1">
+                            <div id="leaveComment">
+                                <form asp-action="Artikle" method="post">
+                                   <input name="ArticleId" type="hidden" value="@Html.DisplayFor(model => model.Id)">
+                                    <div class="form-group">
+                                      <label>Email address</label>
+                                      <input name="CommentedBy" type="email" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                      <label>Write Comment</label>
+                                      <textarea name="Value" class="form-control"></textarea>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="bg-light-green text-white border-none mt-2 pl-4 pr-4 pt-1 pb-1 border-0" style="border-radius: 20px;">Submit</button>
+                                    </div>
+                                    
+                                  </form>
+                            </div>
+                        @{
+                            int count=1;
+                             
+                            @foreach(var item1 in Model.Comments )
+                            {
+                                if(count%2==0)
+                                {
+                                     <div class="comment-box-even">
+                                <div class="d-flex justify-content-between light-green">
+                                    <p>@item1.CommentedBy</p>
+                                    <p>@item1.Created</p>
+                                </div>
+                                <hr class="bg-14342b m-0" />
+                                <p>@item1.Value</p>
+                            </div>
+                                }
+                                else
+                                {
+                                    <div class="comment-box">
+                                    <div class="d-flex justify-content-between light-green">
+                                        <p>@item1.CommentedBy</p>
+                                        <p>@item1.Created</p>
+                                    </div>
+                                    <hr class="bg-dark m-0" />
+                                    <p>@item1.Value</p>
+                                </div>
+                                }
+                                
+                               count++;
+                            }
+                        }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="news-content p-3 mt-3 mb-2 d-none d-md-block">
+                    <div class="botton-left-img mb-2">
+                        <div class="text-center pt-2 d-none d-sm-block">
+                            <p>@Html.DisplayFor(model => model.Created)</p>
+                        </div>
+                        <img src="~/images/@Html.DisplayFor(model => model.Author.ImageName)" class="w-75 mb-2 article-display-block" />
+                        <div class="d-none d-sm-block">
+                            <p class="pl-5 m-0">@Html.DisplayFor(model => model.Author.FirstName) @Html.DisplayFor(model => model.Author.LastName)</p>
+                            <p class="pl-5 m-0">
+                                <i class="fa fa-envelope-o" aria-hidden="true"></i> @Html.DisplayFor(model => model.Author.Mail)
+                            </p>
+                            <p class="pl-5 m-0">
+                                <i class="fa fa-twitter" aria-hidden="true"></i>@Html.DisplayFor(model => model.Author.TwitterUserName)
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="news-content mt-3 mb-2 bg-transparent d-none d-md-block">
+                    <img src="~/images/reklam-1-portrait-320w.png" class="w-100 h-100" alt="" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+

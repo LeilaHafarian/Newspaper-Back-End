@@ -1,0 +1,111 @@
+﻿@using Service.Models
+@model IEnumerable<ArticleSummaryDTO>
+
+@*
+*@
+@{ }
+<div class="container">
+    <div class="row mt-3">
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-sm-6 col-md-4 col-lg-4 mt-3">
+                        <div class="scale card mb-2">
+                            <a href="/News/@item.Id/@item.Title" class="text-decoration-none">
+                                <div class="img">
+                                    <img src="~/images/@Html.DisplayFor(modelItem => item.ImageName)" class="img-w-100 h-100" alt=""/>
+                                </div>
+                                <div class="card-content light-green">
+                                    <p class="p-liten-text">@Html.DisplayFor(modelItem => item.Created)</p>
+                                    <p class="d-none d-md-block p-stor-text bg-14342b">@Html.DisplayFor(modelItem => item.Title)</p>
+                                    <p class="d-md-none d-none d-sm-block p-normal-text bg-14342b">@Html.DisplayFor(modelItem => item.Title)</p>
+                                    <p class="d-md-none d-sm-none d-block p-normal-text bg-14342b">@Html.DisplayFor(modelItem => item.Title)</p>
+                                    
+                                </div>
+                                <div class="author">
+                                        <p>- @Html.DisplayFor(modelItem => item.AuthorLastName)</p>
+                                </div>
+                            </a>
+                      </div>
+                </div>
+            }
+        }
+    </div>
+        <div class="row">
+            <div class="col-12 d-block d-md-none">
+                <div  class="botton-left-img mb-2">
+                    <img src="~/images/reklam-1-landscape-940w.png" class="w-100 h-100" alt=""/>
+                </div>
+            </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 p-0">
+            <div class="p-3 mt-3 mb-2">
+                
+                <div class="card mb-2" style="border-radius: .25rem;">
+                    <div class="m-4">
+                        <div class="p-2">
+                            <h4>The Latest News</h4>
+                        </div>
+                          <hr class="bg-light-green" />
+                        @foreach(var item1 in ViewBag.pinned as List<ArticleSummaryDTO>)
+                        {
+                         <div class="last-news pt-3">
+                            <div class="row">
+                                    @{
+                                        string date;
+                                        var currentDate = DateTime.Now;
+                                        DateTime? dateCreated = item1.Created;
+                                        
+                                        if(currentDate == dateCreated)
+                                        {
+                                            
+                                             date = String.Format("{0:hh:mm MM/dd}", dateCreated); 
+                                        }
+                                        else
+                                        {
+                                             date = String.Format("{0:hh:mm}", dateCreated);
+                                        }
+                                         
+                                  }
+                                <div class="col-12 col-md-2 d-none d-md-block text-center light-green">
+                                        
+                                    <p>@date</p>
+                                </div>
+                                 <div class="col-12 col-md-2 d-block d-md-none text-left light-green">
+                                        
+                                    <p>@date</p>
+                                </div>
+                                <div class="col-12 col-md-7">
+                                   
+                                    @{
+                                        string shortTitle = item1.Title.Remove(10);
+                                        string shortIntro = item1.Intro.Remove(10);
+                                    }
+                                    <p class="p-sort-text bg-14342b pb-0"><b>@shortTitle...</b></p>
+                                    <p class="light-green">@shortIntro...</p>
+                                </div>
+                                <div class="col-12 col-md-3 pt-3">
+                                    <button href="/News/@item1.Id/@item1.Title" class="w-100 text-decoration-none btn-read-more">Read More 
+                                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                          <hr class="bg-light-green" />
+                        }
+                       
+
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 p-0">
+            <div class="p-3 mt-3 mb-2">
+                <div  class="botton-left-img mb-2 d-none d-md-block">
+                    <img src="~/images/reklam-1-portrait-320w.png" class="w-100 h-100" alt=""/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
